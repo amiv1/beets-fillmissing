@@ -43,7 +43,7 @@ def fillmissing_func(lib, opts, args):
             album = item.get('album', 'Unknown Album')
 
             ui.print_(f"--- Track {idx} of {total_tracks} ---")
-            ui.print_(f"{title} by {artist} ({album})")
+            ui.print_(f"{artist} - {album} - {title}")
             ui.print_("")
 
             # Prompt for each field
