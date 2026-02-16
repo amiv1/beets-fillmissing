@@ -1,3 +1,9 @@
+## 0.3.0 (2026-02-16)
+
+### Feat
+
+- change song information output format
+
 ## 0.2.0 (2026-02-16)
 
 ### Feat

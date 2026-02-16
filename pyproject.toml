@@ -1,6 +1,6 @@
 [project]
 name = "beets-fillmissing"
-version = "0.2.0"
+version = "0.3.0"
 description = "A Beets plugin that interactively prompts you to fill in missing or incomplete metadata fields for your music tracks"
 readme = "README.md"
 requires-python = ">=3.10"
