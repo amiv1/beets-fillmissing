@@ -48,19 +48,9 @@ beet fillmissing [QUERY] -f 'field1 field2 field3'
 
 ### Examples
 
-Fill in missing artist and album information:
-```bash
-beet fillmissing 'artist:Unknown' -f 'artist album'
-```
-
 Add genre and mood tags to tracks in a specific album:
 ```bash
 beet fillmissing 'album:Chill Vibes' -f 'genre mood'
-```
-
-Fill custom fields for all tracks missing them:
-```bash
-beet fillmissing 'mood:' -f 'mood context language'
 ```
 
 ## Interactive Commands
