@@ -77,7 +77,7 @@ While filling in metadata, you can:
 ```
 $ beet fillmissing 'mood:' -f 'mood context language'
 Found 3 track(s) matching query.
-Tip: Type 'p' or 'play' to listen to the track
+Commands: 'p' = play | 's' = skip track | 'b' = back | Ctrl+C = quit
 
 --- Track 1 of 3 ---
 Summer Breeze by Jazz Ensemble (Smooth Jazz Collection)
