@@ -1,13 +1,17 @@
 name: Release
 
 on:
-  push:
+  workflow_run:
+    workflows: ["Tests"]
+    types:
+      - completed
     branches:
       - main
 
 jobs:
   release:
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     concurrency: release
     permissions:
       id-token: write
@@ -57,6 +61,6 @@ jobs:
           name: Release ${{ steps.cz.outputs.version }}
           body_path: CHANGELOG.md
           files: |
-            dist/*
+            dist/*.whl
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
