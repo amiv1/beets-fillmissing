@@ -54,12 +54,16 @@ jobs:
       - name: Build package
         run: uv build
 
+      - name: Extract current release notes
+        run: |
+          sed -n '/^## /,/^## /{/^## [0-9]/!p;}' CHANGELOG.md | sed '1d;$d' > release_notes.md
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.cz.outputs.version }}
           name: Release ${{ steps.cz.outputs.version }}
-          body_path: CHANGELOG.md
+          body_path: release_notes.md
           files: |
             dist/*.whl
         env:
