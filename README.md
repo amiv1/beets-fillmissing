@@ -53,6 +53,11 @@ Add genre and mood tags to tracks in a specific album:
 beet fillmissing 'album:Chill Vibes' -f 'genre mood'
 ```
 
+Add mood tags for tracks that don't have it:
+```bash
+beet fillmissing '^mood::.+' -f 'mood'
+```
+
 ## Interactive Commands
 
 While filling in metadata, you can:
