@@ -29,7 +29,7 @@ Repository = "https://github.com/amiv1/beets-fillmissing"
 
 [project.optional-dependencies]
 test = [
-  "pytest>=8.0.0",
+  "pytest>=9.0.2",
   "pytest-cov>=4.1.0",
   "pytest-mock>=3.12.0",
 ]
