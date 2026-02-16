@@ -2,6 +2,7 @@ from beets.plugins import BeetsPlugin
 from beets.ui import Subcommand, decargs
 from beets import ui
 import subprocess
+import platform
 
 
 def fillmissing_func(lib, opts, args):
@@ -30,7 +31,7 @@ def fillmissing_func(lib, opts, args):
 
     total_tracks = len(items_list)
     ui.print_(f"Found {total_tracks} track(s) matching query.")
-    ui.print_("Tip: Type 'p' or 'play' to listen to the track\n")
+    ui.print_("Commands: 'p' = play | 's' = skip track | 'b' = back | Ctrl+C = quit\n")
 
     # Iterate through items
     current_playback = None
@@ -67,26 +68,63 @@ def fillmissing_func(lib, opts, args):
                         current_playback.terminate()
                     return
 
+                # Handle special commands
+                cmd_input = user_input.strip().lower()
+
                 # Check for playback command
-                if user_input.strip().lower() in ['p', 'play']:
+                if cmd_input == 'p':
                     # Stop previous playback if any
-                    if current_playback:
+                    if current_playback and current_playback.poll() is None:
                         current_playback.terminate()
+                        current_playback.wait(timeout=1)
 
                     # Start playback with system default player
                     file_path = item.path.decode('utf-8') if isinstance(item.path, bytes) else item.path
                     try:
-                        current_playback = subprocess.Popen(
-                            ['open', file_path],
-                            stdout=subprocess.DEVNULL,
-                            stderr=subprocess.DEVNULL
-                        )
+                        # Determine the command based on OS
+                        system = platform.system()
+                        if system == 'Darwin': # Mac OS X
+                            cmd = ['open', file_path]
+                            current_playback = subprocess.Popen(
+                                cmd,
+                                stdout=subprocess.DEVNULL,
+                                stderr=subprocess.DEVNULL
+                            )
+                        elif system == 'Windows':
+                            current_playback = subprocess.Popen(
+                                f'start "" "{file_path}"',
+                                shell=True,
+                                stdout=subprocess.DEVNULL,
+                                stderr=subprocess.DEVNULL
+                            )
+                        else:  # Linux and others
+                            cmd = ['xdg-open', file_path]
+                            current_playback = subprocess.Popen(
+                                cmd,
+                                stdout=subprocess.DEVNULL,
+                                stderr=subprocess.DEVNULL
+                            )
                         ui.print_("    ♪ Playing...")
                     except Exception as e:
                         ui.print_(f"    ✗ Could not play track: {e}")
 
                     # Don't advance field, let user enter value again
                     continue
+
+                # Check for skip track command
+                if cmd_input == 's':
+                    ui.print_("    → Skipping track")
+                    break  # Break out of field loop to next track
+
+                # Check for back command
+                if cmd_input == 'b':
+                    if field_idx > 0:
+                        field_idx -= 1
+                        ui.print_("    ← Going back")
+                        continue
+                    else:
+                        ui.print_("    ✗ Already at first field")
+                        continue
 
                 # Process input
                 if user_input.strip():
@@ -103,12 +141,12 @@ def fillmissing_func(lib, opts, args):
 
     except KeyboardInterrupt:
         ui.print_("\n\nInterrupted by user.")
-        if current_playback:
+        if current_playback and current_playback.poll() is None:
             current_playback.terminate()
         return
 
     # Clean up playback on exit
-    if current_playback:
+    if current_playback and current_playback.poll() is None:
         current_playback.terminate()
 
     ui.print_("Done!")
