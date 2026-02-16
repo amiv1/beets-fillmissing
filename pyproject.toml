@@ -1,31 +1,57 @@
 [project]
 name = "beets-fillmissing"
 version = "0.1.0"
-description = "Add your description here"
+description = "A Beets plugin that interactively prompts you to fill in missing or incomplete metadata fields for your music tracks"
 readme = "README.md"
-requires-python = ">=3.14"
-dependencies = [
-    "beets>=2.6.1",
+requires-python = ">=3.10"
+license = "MIT"
+keywords = ["beets", "metadata", "music", "plugin", "tagging"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: End Users/Desktop",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Topic :: Multimedia :: Sound/Audio",
 ]
+dependencies = [
+  "beets>=2.6.1",
+]
+
+[project.urls]
+Homepage = "https://github.com/amiv1/beets-fillmissing"
+Issues = "https://github.com/amiv1/beets-fillmissing/issues"
+Repository = "https://github.com/amiv1/beets-fillmissing"
 
 [project.optional-dependencies]
 test = [
-    "pytest>=8.0.0",
-    "pytest-cov>=4.1.0",
-    "pytest-mock>=3.12.0",
+  "pytest>=8.0.0",
+  "pytest-cov>=4.1.0",
+  "pytest-mock>=3.12.0",
 ]
 
-[tool.pytest.ini_options]
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["beetsplug"]
+
+[tool.pytest]
 testpaths = ["tests"]
 python_files = ["test_*.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]
 addopts = [
-    "--cov=beetsplug",
-    "--cov-report=term-missing",
-    "--cov-report=html",
-    "--cov-branch",
-    "-v"
+  "--cov=beetsplug",
+  "--cov-report=term-missing",
+  "--cov-report=html",
+  "--cov-branch",
+  "-v"
 ]
 
 [tool.coverage.run]
@@ -34,9 +60,9 @@ omit = ["*/tests/*", "*/__pycache__/*"]
 
 [tool.coverage.report]
 exclude_lines = [
-    "pragma: no cover",
-    "def __repr__",
-    "raise AssertionError",
-    "raise NotImplementedError",
-    "if __name__ == .__main__.:",
+  "pragma: no cover",
+  "def __repr__",
+  "raise AssertionError",
+  "raise NotImplementedError",
+  "if __name__ == .__main__.:",
 ]
