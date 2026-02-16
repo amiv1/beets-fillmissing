@@ -42,23 +42,30 @@ jobs:
       - name: Bump version and create changelog
         id: cz
         run: |
-          uvx --from commitizen cz bump --yes --changelog
-          echo "version=$(uvx --from commitizen cz version --project)" >> $GITHUB_OUTPUT
-        continue-on-error: false
+          if uvx --from commitizen cz bump --yes --changelog; then
+            echo "version=$(uvx --from commitizen cz version --project)" >> $GITHUB_OUTPUT
+            echo "bumped=true" >> $GITHUB_OUTPUT
+          else
+            echo "bumped=false" >> $GITHUB_OUTPUT
+          fi
 
       - name: Push changes
+        if: steps.cz.outputs.bumped == 'true'
         run: |
           git push
           git push --tags
 
       - name: Build package
+        if: steps.cz.outputs.bumped == 'true'
         run: uv build
 
       - name: Extract current release notes
+        if: steps.cz.outputs.bumped == 'true'
         run: |
           sed -n '/^## /,/^## /{/^## [0-9]/!p;}' CHANGELOG.md | sed '1d;$d' > release_notes.md
 
       - name: Create GitHub Release
+        if: steps.cz.outputs.bumped == 'true'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.cz.outputs.version }}
