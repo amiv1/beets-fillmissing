@@ -1,5 +1,5 @@
 from beets.plugins import BeetsPlugin
-from beets.ui import Subcommand, decargs
+from beets.ui import Subcommand
 from beets import ui
 import subprocess
 import platform
@@ -9,7 +9,7 @@ def fillmissing_func(lib, opts, args):
     """Interactively fill missing metadata fields for tracks."""
 
     # Parse arguments
-    query = decargs(args)
+    query = args
     fields = opts.fields
 
     # Validate fields option
