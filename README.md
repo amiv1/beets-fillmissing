@@ -13,16 +13,14 @@ A [Beets](https://beets.io/) plugin that interactively prompts you to fill in mi
 
 ## Installation
 
-### From Git (Recommended)
-
-Install directly from GitHub:
+Install from PyPI:
 
 ```bash
 # Using pip
-pip install git+https://github.com/amiv1/beets-fillmissing.git
+pip install beets-fillmissing
 
 # Using pipx
-pipx inject beets git+https://github.com/amiv1/beets-fillmissing.git
+pipx inject beets beets-fillmissing
 ```
 
 ## Configuration
