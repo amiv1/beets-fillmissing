@@ -43,7 +43,7 @@ beet fillmissing [QUERY] -f 'field1 field2 field3'
 
 ### Arguments
 
-- `QUERY`: Standard Beets query to filter tracks (e.g., `artist:Unknown`, `genre:`, `album:'My Album'`)
+- `QUERY`: Standard Beets query to filter tracks (e.g., `artist:Unknown`, `genre:Hip-Hop`, `album:'My Album'`)
 - `-f, --fields`: Space-separated list of fields to populate
 
 ### Examples
@@ -64,7 +64,9 @@ While filling in metadata, you can:
 
 - **Enter a value**: Type the new value and press Enter to update the field
 - **Skip a field**: Press Enter without typing to skip (keeps existing value or leaves blank)
-- **Play track**: Type `p` or `play` to open the track in your system's default audio player
+- **Play track**: Type `p` to open the track in your system's default audio player
+- **Go back**: Type `b` to go back to editing the previous field
+- **Skip track**: Type `s` to skip the current track metadata editing and go to the next one
 - **Exit**: Press Ctrl+C or Ctrl+D to stop the process anytime
 
 ## Example Session
@@ -75,7 +77,7 @@ Found 3 track(s) matching query.
 Commands: 'p' = play | 's' = skip track | 'b' = back | Ctrl+C = quit
 
 --- Track 1 of 3 ---
-Summer Breeze by Jazz Ensemble (Smooth Jazz Collection)
+Jazz Ensemble - Smooth Jazz Collection - Summer Breeze
 
   mood: chill
     → Updated mood
@@ -85,7 +87,7 @@ Summer Breeze by Jazz Ensemble (Smooth Jazz Collection)
     → Updated language
 
 --- Track 2 of 3 ---
-Midnight Drive by Synthwave Artists (Neon Nights)
+Synthwave Artists - Neon Nights - Midnight Drive
 
   mood: p
     ♪ Playing...
