@@ -75,3 +75,7 @@ jobs:
             dist/*.whl
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish to PyPI
+        if: steps.cz.outputs.bumped == 'true'
+        uses: pypa/gh-action-pypi-publish@release/v1
