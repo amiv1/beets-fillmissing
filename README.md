@@ -1,5 +1,7 @@
 # beets-fillmissing
 
+[![PyPI - Version](https://img.shields.io/pypi/v/beets-fillmissing)](https://pypi.org/project/beets-fillmissing/)
+
 A [Beets](https://beets.io/) plugin that interactively prompts you to fill in missing or incomplete metadata fields for your music tracks.
 
 ## Features
